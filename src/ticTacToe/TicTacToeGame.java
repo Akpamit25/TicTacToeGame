@@ -12,6 +12,8 @@ public class TicTacToeGame {
 		board = createBoard();
 		char userMark = userChoice();
 		char computerMark = (userMark == 'X') ? 'O' : 'X';
+		System.out.println("Board :");
+		showBoard();
 	}
 
 	private static char[] createBoard() //// CREATE Array
@@ -29,5 +31,15 @@ public class TicTacToeGame {
 		Scanner sc1 = new Scanner(System.in);
 		char c = sc1.next().toUpperCase().charAt(0);
 		return c;
+	}
+
+	private static void showBoard() {
+		for (int j = 1; j < board.length; j++) {
+			System.out.print("[" + board[j] + "]");
+			if (j % 3 == 0) {
+				System.out.println(" ");
+				System.out.println("---------");
+			}
+		}
 	}
 }
