@@ -12,13 +12,15 @@ public class TicTacToeGame {
 
 	// Main Method
 	public static void main(String[] args) {
-		board = createBoard();
-		char userMark = userChoice();
-		char computerMark = (userMark == 'X') ? 'O' : 'X';
+		System.out.println("Welcome To Tic Tac Gaming Arena !!");
+		createBoard();
+		userMark = userChoice();
+	    computerMark = (userMark == 'X') ? 'O' : 'X';
 		System.out.println("Board :");
 		showBoard();
 		System.out.println("Enter any Index from 1 to 9 where you want to place the move :");
 		selectIndex();
+		showBoard(); //Displaying Board After Our Move
 	}
 
 	// Space Validity
@@ -30,13 +32,12 @@ public class TicTacToeGame {
 	}
 
 	// Creating Board
-	private static char[] createBoard() {
-		char[] board1 = new char[10];
-		for (int i = 0; i < board1.length; i++) {
-			board1[i] = ' ';
+	private static void createBoard() {
+		board = new char[10];
+		for (int i = 0; i < board.length; i++) {
+			board[i] = ' ';
 		}
 		System.out.println("Array Created");
-		return board1;
 	}
 
 	// Taking User Input
@@ -65,7 +66,7 @@ public class TicTacToeGame {
 			if (Index <= 9 && Index >= 1) {
 				if (checkSpace(board, Index)) {
 					System.out.println("This is a valid move");
-					board[Index] = userMark;
+					board[Index] = userMark; //Making Our Move
 					break;
 				} else {
 					System.out.println("Already occupied! Please select another index");
