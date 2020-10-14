@@ -14,13 +14,16 @@ public class TicTacToeGame {
 	public static void main(String[] args) {
 		System.out.println("Welcome To Tic Tac Gaming Arena !!");
 		createBoard();
-		userMark = userChoice();
-	    computerMark = (userMark == 'X') ? 'O' : 'X';
-		System.out.println("Board :");
-		showBoard();
-		System.out.println("Enter any Index from 1 to 9 where you want to place the move :");
-		selectIndex();
-		showBoard(); //Displaying Board After Our Move
+		System.out.println("Want to Play Game (Y/N) ?");
+		char input = sc.next().toUpperCase().charAt(0);
+		if (input == 'Y') {
+			System.out.println("Let's Toss !!");
+			int res = toss();
+			showBoard();
+			System.out.println("Enter any Index from 1 to 9 where you want to place the move :");
+			selectIndex();
+			showBoard(); // Displaying Board After Our Move
+		}
 	}
 
 	// Space Validity
@@ -31,24 +34,23 @@ public class TicTacToeGame {
 			return false;
 	}
 
-	// Creating Board
+	// Creating Board - UC1
 	private static void createBoard() {
 		board = new char[10];
 		for (int i = 0; i < board.length; i++) {
 			board[i] = ' ';
 		}
-		System.out.println("Array Created");
 	}
 
-	// Taking User Input
-	private static char userChoice() {
+	// Taking User Input - UC2 //Method Name Refactored from userChoice to Choice :
+	private static char Choice() {
 		System.out.println("Input Either 'X' OR 'O' : ");
 		// Scanner sc1 = new Scanner(System.in);
 		char c = sc.next().toUpperCase().charAt(0);
 		return c;
 	}
 
-	// Displaying Tic Tac Toe Board
+	// Displaying Tic Tac Toe Board - UC3
 	private static void showBoard() {
 		for (int j = 1; j < board.length; j++) {
 			System.out.print("[" + board[j] + "]");
@@ -59,14 +61,14 @@ public class TicTacToeGame {
 		}
 	}
 
-	// Index Selection For Performing any move.
+	// Index Selection For Performing any move. - UC4 & UC5
 	public static void selectIndex() {
 		while (true) {
 			Index = sc.nextInt();
 			if (Index <= 9 && Index >= 1) {
 				if (checkSpace(board, Index)) {
 					System.out.println("This is a valid move");
-					board[Index] = userMark; //Making Our Move
+					board[Index] = userMark; // Making Our Move
 					break;
 				} else {
 					System.out.println("Already occupied! Please select another index");
@@ -77,4 +79,26 @@ public class TicTacToeGame {
 			}
 		}
 	}
+
+	// Tossing to decide who will play first : UC6
+	private static int toss() {
+
+		int max = 3;
+		int min = 1;
+		int range = max - min;
+		int rand = (int) (Math.random() * range);
+		if (rand == 0) {
+			System.out.println("Computer Will Start The Game");
+			computerMark = Choice();
+			userMark = (computerMark == 'X') ? 'O' : 'X';
+
+		} else if (rand == 1) {
+			System.out.println("User Will Start The Game");
+			userMark = Choice();
+			computerMark = (userMark == 'X') ? 'O' : 'X';
+		}
+		return rand;
+
+	}
+
 }
