@@ -236,12 +236,28 @@ public class TicTacToeGame {
 	}
 	
 	//UC10 : Corner Input
-	public static void selectCorner() {
-		while(true) {
-			Index = (int)(Math.random()*10)%10;
-			if((Index != 5)&&(checkSpace(board, Index))) {
-				break;
+	public static int selectCorner() {
+		int corner = 5;
+		if (isCornerAvailable()) {
+			while (true) {
+				corner = (int) (Math.random() * 10) % 10;
+				if ((corner != 5) && (checkSpace(board, corner))) {
+					return corner;
+				}
 			}
 		}
+		return corner;
+	}
+	
+	//UC11 : Checking whether Corner Is Free Or Not
+	public static boolean isCornerAvailable() {
+		for (int i = 1; i < 9; i++) {
+			if (i == 5) {
+				continue;
+			} else if (board[i] == ' ') {
+				return true;
+			}
+		}
+		return false;
 	}
 }
