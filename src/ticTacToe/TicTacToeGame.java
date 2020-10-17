@@ -114,19 +114,11 @@ public class TicTacToeGame {
 						computerTurn = false;
 						break;
 					} else {
-						System.out.println("There is no position to block and win!!");
-						System.out.println("Enter the index from 1 to 9 where you want to place your move: ");
-						Index = sc.nextInt();
-						if (checkSpace(board, Index) && (Index > 0) && (Index < 10)) {
-							System.out.println("Its valid move");
-							board[Index] = computerMark;
-
-							playerTurn = true;
-							computerTurn = false;
-							break;
-						} else {
-							System.out.println("Already occupied! please select another index");
-						}
+						selectCorner();
+						board[Index] = computerMark;
+						playerTurn = true;
+						computerTurn = false;
+						break;
 					}
 				}
 			}
@@ -241,5 +233,15 @@ public class TicTacToeGame {
 		playerTurn = false;
 		computerTurn = true;
 		return 0;
+	}
+	
+	//UC10 : Corner Input
+	public static void selectCorner() {
+		while(true) {
+			Index = (int)(Math.random()*10)%10;
+			if((Index != 5)&&(checkSpace(board, Index))) {
+				break;
+			}
+		}
 	}
 }
