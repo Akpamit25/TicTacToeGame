@@ -114,8 +114,8 @@ public class TicTacToeGame {
 						computerTurn = false;
 						break;
 					} else {
-						selectCorner();
-						board[Index] = computerMark;
+						int corner = selectCorner();
+						board[corner] = computerMark;
 						playerTurn = true;
 						computerTurn = false;
 						break;
@@ -234,8 +234,8 @@ public class TicTacToeGame {
 		computerTurn = true;
 		return 0;
 	}
-	
-	//UC10 : Corner Input
+
+	// UC10 : Corner Input
 	public static int selectCorner() {
 		int corner = 5;
 		if (isCornerAvailable()) {
@@ -248,8 +248,8 @@ public class TicTacToeGame {
 		}
 		return corner;
 	}
-	
-	//UC11 : Checking whether Corner Is Free Or Not
+
+	// UC11 : Checking whether Corner Is Free Or Not
 	public static boolean isCornerAvailable() {
 		for (int i = 1; i < 9; i++) {
 			if (i == 5) {
