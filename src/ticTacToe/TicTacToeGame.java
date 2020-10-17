@@ -32,6 +32,7 @@ public class TicTacToeGame {
 				if (isTie) {
 					if (!isWin) {
 						System.out.println("Tie!!");
+						break;
 					}
 
 				}
@@ -78,6 +79,8 @@ public class TicTacToeGame {
 	// Index Selection For Performing any move. - UC4 & UC5
 	public static void selectIndex() {
 		while (true) {
+			if(playerTurn)
+			{
 			System.out.println("Enter any Index from 1 to 9 where you want to place the move :");
 
 			Index = sc.nextInt();
@@ -86,12 +89,9 @@ public class TicTacToeGame {
 					System.out.println("This is a valid move");
 					if (playerTurn) {
 						board[Index] = userMark; // User Making The Move
-						// playerTurn = false;
-						// computerTurn = true;
-					} else {
-						board[Index] = computerMark; // Computer making the move
-						// playerTurn = true;
-						// computerTurn = false;
+						playerTurn = false;
+						computerTurn = true;
+						break;
 					}
 
 					// break;
@@ -102,9 +102,32 @@ public class TicTacToeGame {
 				System.out.println("Invalid Choice !!!! , Kindly select Index from 1 to 9 only !");
 
 			}
+			}
+			else {
+				int win = canIWin();
+				if (win > 0) {
+					board[win] = computerMark;
+					break;
+				} else {
+					System.out.println("There is no move to win now! "
+							+ "Enter the index from 1 to 9 where you want to place your move: ");
+					Index = sc.nextInt();
+					if (checkSpace(board, Index) && (Index > 0) && (Index < 10)) {
+						System.out.println("Its valid move");
+						board[Index] = computerMark;
+
+						playerTurn = true;
+						computerTurn = false;
+						break;
+					} else {
+						System.out.println("Already occupied! please select another index");
+					}
+			}
 			break;
 		}
+		}
 	}
+	
 
 	// Tossing to decide who will play first : UC6
 	private static int toss() {
@@ -162,10 +185,7 @@ public class TicTacToeGame {
 					|| (userMark == board[3] && userMark == board[5] && userMark == board[7])) {
 				System.out.println("Player wins");
 				return true;
-			} else {
-				playerTurn = false;
-				computerTurn = true;
-			}
+			} 
 		} else {
 			if ((computerMark == board[1] && computerMark == board[2] && computerMark == board[3])
 					|| (computerMark == board[4] && computerMark == board[5] && computerMark == board[6])
@@ -177,12 +197,24 @@ public class TicTacToeGame {
 					|| (computerMark == board[3] && computerMark == board[5] && computerMark == board[7])) {
 				System.out.println("Computer wins");
 				return true;
-			} else {
-				playerTurn = true;
-				computerTurn = false;
 			}
 		}
 		return false;
+	}
+	
+	//UC8 : Making computer intelligent
+	public static int canIWin() {
+		for (int i = 1; i < 10; i++) {
+			if (board[i] == ' ') {
+				board[i] = computerMark;
+				if (IsWin()) {
+					return i;
+				} else {
+					board[i] = ' ';
+				}
+			}
+		}
+		return 0;
 	}
 
 }
